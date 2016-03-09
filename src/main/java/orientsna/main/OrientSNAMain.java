@@ -1,17 +1,16 @@
 package orientsna.main;
 
+import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
+import orientsna.algorithms.LabelPropagation;
+import orientsna.engine.GraphAlgoEngine;
+import orientsna.engine.impl.ParallelGraphEngine;
+import orientsna.loader.GraphLoader;
+
 import java.io.File;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
-
-import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
-import orientsna.algorithms.LabelPropagation;
-import orientsna.engine.GraphAlgoEngine;
-import orientsna.engine.impl.SingleGraphEngine;
-import orientsna.loader.GraphLoader;
 
 public class OrientSNAMain {
 	public static void main(String[] args) throws Exception {
@@ -29,8 +28,8 @@ public class OrientSNAMain {
 		loader.load(factory, nodeFile, edgeFile);
 
 //		GraphUtils.printGraph(factory);
-		
-		GraphAlgoEngine engine = new SingleGraphEngine(factory);
+
+		GraphAlgoEngine engine = new ParallelGraphEngine(factory);
 		LabelPropagation lp = new LabelPropagation();
 		engine.execute(lp);
 		
@@ -45,6 +44,8 @@ public class OrientSNAMain {
 		.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()) );
 		
 		frequencies.entrySet().stream().map(e -> e.getKey()+" "+e.getValue()).forEach(System.out::println);
-		
+
+		engine.shutdown();
+		factory.close();
 	}
 }
