@@ -5,3 +5,4 @@ target
 .pydevproject
 .idea
 *.iml
+db

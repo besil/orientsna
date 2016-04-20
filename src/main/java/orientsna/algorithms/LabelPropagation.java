@@ -1,15 +1,14 @@
 package orientsna.algorithms;
 
-import java.util.Map.Entry;
-
 import com.tinkerpop.blueprints.Direction;
 import com.tinkerpop.blueprints.Vertex;
-
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import orientsna.engine.algorithms.VertexAlgorithm;
+
+import java.util.Map.Entry;
 
 public class LabelPropagation implements VertexAlgorithm {
 //	private Logger log = Logger.getLogger(LabelPropagation.class.getName());
